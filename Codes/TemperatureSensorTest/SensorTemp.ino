@@ -19,7 +19,7 @@ float tempMin = 999;
 float tempMax = 0;
  
 DallasTemperature sensors(&oneWire);
-DeviceAddress sensor1,sensor2;
+DeviceAddress sensor1,sensor2,sensor3;
 bool primeira = false;
  
 void setup(void)
@@ -56,10 +56,14 @@ void loop()
   if (!sensors.getAddress(sensor1, 0)) 
      Serial.println("Sensor1 nao encontrado !"); 
   if (!sensors.getAddress(sensor2, 1)) 
+     Serial.println("Sensor2 nao encontrado !");
+  if (!sensors.getAddress(sensor3, 2)) 
      Serial.println("Sensor2 nao encontrado !"); 
   // Mostra o endereco do sensor encontrado no barramento
   Serial.print("Endereco sensor1: ");
   mostra_endereco_sensor(sensor1);
+  Serial.print("Endereco sensor2: ");
+  mostra_endereco_sensor(sensor2);
   Serial.print("Endereco sensor2: ");
   mostra_endereco_sensor(sensor2);
   Serial.println();
@@ -69,27 +73,18 @@ void loop()
   }
   // Le a informacao do sensor
   sensors.requestTemperatures();
-  float tempC = sensors.getTempC(sensor1);
+  float tempC1 = sensors.getTempC(sensor1);
   float tempC2 = sensors.getTempC(sensor2);
-  // Atualiza temperaturas minima e maxima
-  if (tempC < tempMin)
-  {
-    tempMin = tempC;
-  }
-  if (tempC > tempMax)
-  {
-    tempMax = tempC;
-  }
+  float tempC3 = sensors.getTempC(sensor3);
+
   // Mostra dados no serial monitor
-  Serial.print("Temp S1 C: ");
-  Serial.print(tempC);
-  Serial.print(" Min : ");
-  Serial.print(tempMin);
-  Serial.print(" Max : ");
-  Serial.println(tempMax);
-  Serial.print("Temp S2 C: ");
+  Serial.print("Temp 1: ");
+  Serial.print(tempC1);
+  Serial.print("Temp 2: ");
   Serial.println(tempC2);
-   
+  Serial.print("Temp 3: ");
+  Serial.println(tempC3);
+  
   digitalWrite(LED_BUILTIN,LOW);
   delay(1500);
   digitalWrite(LED_BUILTIN,HIGH);
