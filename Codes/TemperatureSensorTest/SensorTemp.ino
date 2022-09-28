@@ -13,12 +13,7 @@
  
 // Define uma instancia do oneWire para comunicacao com o sensor
 OneWire oneWire(ONE_WIRE_BUS);
- 
-// Armazena temperaturas minima e maxima
-float tempMin = 999;
-float tempMax = 0;
- 
-DallasTemperature sensors(&oneWire);
+ DallasTemperature sensors(&oneWire);
 DeviceAddress sensor1,sensor2,sensor3;
 bool primeira = false;
  
